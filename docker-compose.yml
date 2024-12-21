@@ -1,25 +1,15 @@
-version: '3.6'
-
 services:
   grafana:
-    build:
-      context: ./
-      dockerfile: Dockerfile
-    container_name: grafana-development
+    image: grafana/grafana-enterprise
+    container_name: grafana
     restart: unless-stopped
     environment:
-      - TZ=Europe/Amsterdam
-      - GF_DEFAULT_INSTANCE_NAME=my-instance
-      - GF_SECURITY_ADMIN_USER=owner
-      - GF_LOG_MODE=console
+     - GF_SERVER_ROOT_URL=https://grafana.affiliapass.com
+     - GF_SECURITY_ADMIN_USER=betpassoficial
+     - GF_SECURITY_ADMIN_PASSWORD=teste
     ports:
-      - 3000:3000
+     - '3000:3000'
     volumes:
-      - ./data/grafana:/var/lib/grafana
-    networks:
-      - regenfass
-
-networks:
-  regenfass:
-    name: regenfass
-    driver: bridge
+     - /mnt/data:/var/lib/grafana
+volumes:
+  grafana_storage: {}
